@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "mongoose": "^5.11.18",
     "node-binance-api": "^0.12.4"
   }
 }
