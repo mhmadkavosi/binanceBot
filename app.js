@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Binance = require('node-binance-api');
+const axios = require('axios');
 
 const binance = new Binance().options({
   APIKEY: 'v5FwYDkW8SPp4a8nw9E33pNYUukelEHGAxtI800rxKOZUfMMVC7ByBn4DRf7tH4Z',
@@ -23,20 +24,25 @@ const ethSchema = mongoose.Schema(
       type: Date,
       default: Date.now(),
     },
+    symbol: String,
   },
   { versionKey: false }
 );
 
 const Eth = mongoose.model('eth', ethSchema);
 
-function getLastPrice() {
-  binance.prices('ETHUSDT', (error, ticker) => {
-    Eth.create({ price: ticker.ETHUSDT });
-  });
-}
-getLastPrice();
-
-const cl = async () => {
-  console.log(await Eth.find());
+const getLastPrice = async () => {
+  try {
+    const resp = await axios.get(
+      'https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT'
+    );
+    await Eth.create({ price: resp.data.price, symbol: resp.data.symbol });
+    let price = await Eth.find();
+    console.log(price);
+  } catch (err) {
+    // Handle Error Here
+    console.error(err);
+  }
 };
-cl();
+
+getLastPrice();
