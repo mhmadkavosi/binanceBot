@@ -10,19 +10,22 @@ const db = 'mongodb://localhost:27017/binanceBot';
 mongoose
   .connect(db, {
     useNewUrlParser: true,
-    useCreateIndex: true,
+    useCreateIndex: false,
     useFindAndModify: false,
     useUnifiedTopology: true,
   })
   .then(() => console.log('Database connect successfuly!'));
 
-const ethSchema = mongoose.Schema({
-  price: String,
-  createdAt: {
-    type: Date,
-    default: Date.now(),
+const ethSchema = mongoose.Schema(
+  {
+    price: String,
+    createdAt: {
+      type: Date,
+      default: Date.now(),
+    },
   },
-});
+  { versionKey: false }
+);
 
 const Eth = mongoose.model('eth', ethSchema);
 
