@@ -34,27 +34,6 @@ exports.getLastPrice = async () => {
   }
 };
 
-// setInterval(() => {
-//   getLastPrice();
-// }, 1000);
-// getLastPrice();
-// These orders will be executed at current market price.
-// let quantity = 1;
-// const buy = async () => {
-//   try {
-//     const buye = await binance.marketSell('BNBBTC', quantity);
-//     console.log(buye);
-//   } catch (error) {
-//     console.log(error.body);
-//   }
-// };
-// binance.marketSell('ETHBTC', quantity);
-// Get all account orders; active, canceled, or filled.
-
-// binance.allOrders('ETHBTC', (error, orders, symbol) => {
-//   console.info(`${symbol} orders:`, orders);
-// });
-
 exports.account = async () => {
   try {
     let lendingData = await binance.lending();
@@ -79,6 +58,16 @@ exports.createMarketSell = async () => {
     let quantity = 1;
     const sell = await binance.marketSell('BNBBTC', quantity);
     console.log(sell);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.createMarketBuy = async () => {
+  try {
+    let quantity = 1;
+    const buy = await binance.marketBuy('BNBBTC', quantity);
+    console.log(buy);
   } catch (error) {
     console.log(error);
   }
