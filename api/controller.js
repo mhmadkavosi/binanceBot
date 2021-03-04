@@ -36,7 +36,7 @@ exports.getLastPrice = async () => {
 
 exports.account = async () => {
   try {
-    let lendingData = await binance.lending();
+    let lendingData = await binance.balance();
     console.log(lendingData);
   } catch (error) {
     console.log(error);
