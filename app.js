@@ -1,13 +1,9 @@
 const mongoose = require('mongoose');
-const Binance = require('node-binance-api');
 const dotenv = require('dotenv');
 
-dotenv.config({ path: './config.env' });
+const controller = require('./api/controller');
 
-const binance = new Binance().options({
-  APIKEY: process.env.API_KEY,
-  APISECRET: process.env.API_SECRET,
-});
+dotenv.config({ path: './config.env' });
 
 const db = process.env.DATABASE_URL;
 mongoose

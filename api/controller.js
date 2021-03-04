@@ -63,3 +63,14 @@ exports.account = async () => {
     console.log(error);
   }
 };
+
+exports.getAllOrders = async () => {
+  try {
+    await binance.allOrders('ETHBTC', (error, orders, symbol) => {
+      console.info(`${symbol} orders:`, orders);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
