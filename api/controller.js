@@ -74,3 +74,12 @@ exports.getAllOrders = async () => {
   }
 };
 
+exports.createMarketSell = async () => {
+  try {
+    let quantity = 1;
+    const sell = await binance.marketSell('BNBBTC', quantity);
+    console.log(sell);
+  } catch (error) {
+    console.log(error);
+  }
+};
