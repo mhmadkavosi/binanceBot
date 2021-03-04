@@ -1,5 +1,14 @@
 const axios = require('axios');
+const Binance = require('node-binance-api');
+const dotenv = require('dotenv');
 const model = require('./model.js');
+
+dotenv.config({ path: './config.env' });
+
+const binance = new Binance().options({
+  APIKEY: process.env.API_KEY,
+  APISECRET: process.env.API_SECRET,
+});
 
 let symbols = 'ETHUSDT';
 
@@ -25,3 +34,32 @@ exports.getLastPrice = async () => {
   }
 };
 
+// setInterval(() => {
+//   getLastPrice();
+// }, 1000);
+// getLastPrice();
+// These orders will be executed at current market price.
+// let quantity = 1;
+// const buy = async () => {
+//   try {
+//     const buye = await binance.marketSell('BNBBTC', quantity);
+//     console.log(buye);
+//   } catch (error) {
+//     console.log(error.body);
+//   }
+// };
+// binance.marketSell('ETHBTC', quantity);
+// Get all account orders; active, canceled, or filled.
+
+// binance.allOrders('ETHBTC', (error, orders, symbol) => {
+//   console.info(`${symbol} orders:`, orders);
+// });
+
+exports.account = async () => {
+  try {
+    let lendingData = await binance.lending();
+    console.log(lendingData);
+  } catch (error) {
+    console.log(error);
+  }
+};
