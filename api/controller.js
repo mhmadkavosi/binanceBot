@@ -39,14 +39,24 @@ exports.getLastPrice = async () => {
 
 // @desc    get balance on btc
 // @route   /api/balanceOnBTC GET
-exports.balanceOnBTC = async () => {
+exports.balanceOnBTC = async (req, res, next) => {
   try {
     let lendingData = await binance.balance();
     // console.log(lendingData.BTC.available);
     lendingData = lendingData.BTC.available;
     await balanceModel.create({ balance: lendingData, symbol: 'BTC' });
+    let data = await balanceModel.findOne().sort('-createdAt');
+    res.status(200).json({
+      status: 'OK',
+      body: {
+        data,
+      },
+    });
   } catch (error) {
-    console.log(error);
+    res.status(500).json({
+      status: 'Fail',
+      error,
+    });
   }
 };
 
