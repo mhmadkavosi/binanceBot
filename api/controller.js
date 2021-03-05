@@ -1,6 +1,7 @@
 const axios = require('axios');
 const Binance = require('node-binance-api');
 const dotenv = require('dotenv');
+const balanceModel = require('./model/balanceModel');
 const sellInfoModel = require('./model/sellinfoModel');
 const buyInfoModel = require('./model/buyInfoModel');
 
@@ -35,12 +36,14 @@ exports.getLastPrice = async () => {
   }
 };
 
+// @desc    get balance on btc
+// @route   /api/balanceOnBTC GET
 exports.balanceOnBTC = async () => {
   try {
     let lendingData = await binance.balance();
     // console.log(lendingData.BTC.available);
     lendingData = lendingData.BTC.available;
-    await model.create({ balance: lendingData, symbol: 'BTC' });
+    await balanceModel.create({ balance: lendingData, symbol: 'BTC' });
   } catch (error) {
     console.log(error);
   }
