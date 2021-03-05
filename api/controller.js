@@ -1,7 +1,7 @@
 const axios = require('axios');
 const Binance = require('node-binance-api');
 const dotenv = require('dotenv');
-const model = require('./model.js');
+const sellInfoModel = require('./model/sellinfoModel');
 
 dotenv.config({ path: './config.env' });
 
@@ -65,12 +65,29 @@ exports.createMarketSell = async () => {
   }
 };
 
-exports.createMarketBuy = async () => {
+// @desc    Create a Market sell
+// @route   /api/sell GET
+
+exports.createMarketSell = async (req, res, next) => {
   try {
-    let quantity = 1;
-    const buy = await binance.marketBuy('BNBBTC', quantity);
-    console.log(buy);
+    let { symbol } = req.params;
+    let quantity = await buyInfoModel.findOne().sort('-createdAt');
+    quantity = quantity.quantity;
+    const sell = await binance.marketSell(
+      `${symbol.toUpperCase()}BTC`,
+      quantity
+    );
+    await sellInfoModel.create(sell);
+    res.status(200).json({
+      status: 'OK',
+      body: {
+        sell,
+      },
+    });
   } catch (error) {
-    console.log(error);
+    res.status(500).json({
+      status: 'Fail',
+      error,
+    });
   }
 };
