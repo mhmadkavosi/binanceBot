@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const balanceModel = require('./model/balanceModel');
 const sellInfoModel = require('./model/sellinfoModel');
 const buyInfoModel = require('./model/buyInfoModel');
+const order = require('./model/ordersModel');
 
 dotenv.config({ path: './config.env' });
 
@@ -49,13 +50,28 @@ exports.balanceOnBTC = async () => {
   }
 };
 
-exports.getAllOrders = async () => {
+// @desc    get open orders
+// @route   /api/openOrders GET
+
+exports.getOpenOrders = async (req, res, next) => {
+  let openOrder;
   try {
-    await binance.allOrders('ETHBTC', (error, orders, symbol) => {
-      console.info(`${symbol} orders:`, orders);
+    await binance.openOrders(false, (error, openOrders) => {
+      openOrder = openOrders;
+    });
+    await order.create(openOrder);
+    let data = await order.find();
+    res.status(200).json({
+      status: 'Ok',
+      body: {
+        data,
+      },
     });
   } catch (error) {
-    console.log(error);
+    res.status(500).json({
+      status: 'Fail',
+      error,
+    });
   }
 };
 
