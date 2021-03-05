@@ -37,7 +37,9 @@ exports.getLastPrice = async () => {
 exports.balanceOnBTC = async () => {
   try {
     let lendingData = await binance.balance();
-    console.log(lendingData.BTC);
+    // console.log(lendingData.BTC.available);
+    lendingData = lendingData.BTC.available;
+    await model.create({ balance: lendingData, symbol: 'BTC' });
   } catch (error) {
     console.log(error);
   }
