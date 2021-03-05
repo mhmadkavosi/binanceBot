@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "859a42af-0926-45c6-909b-3608e205dcfb",
+		"name": "BinanceBot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Market Buy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "/api/buy/btc",
+					"path": [
+						"api",
+						"buy",
+						"btc"
+					]
+				},
+				"description": "Create buy order \nbtc => coin\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Market sell",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "/api/sell/eth",
+					"path": [
+						"api",
+						"sell",
+						"eth"
+					]
+				},
+				"description": "Create Market Sell\nCoin => btc\n"
+			},
+			"response": []
+		},
+		{
+			"name": "get balnce on btc",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "/api/balnceOnBTC",
+					"path": [
+						"api",
+						"balnceOnBTC"
+					]
+				},
+				"description": "Get balnce of account base btc"
+			},
+			"response": []
+		},
+		{
+			"name": "get open orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "/api/openOrders",
+					"path": [
+						"api",
+						"openOrders"
+					]
+				},
+				"description": "get open all open orders of account\n"
+			},
+			"response": []
+		},
+		{
+			"name": "get last price of coin",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/getLastPrice/btcusdt",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"getLastPrice",
+						"btcusdt"
+					]
+				},
+				"description": "get last price of coin"
+			},
+			"response": []
+		}
+	]
+}
