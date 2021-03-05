@@ -8,5 +8,5 @@ router.route('/buy/:symbol').get(controller.createMarketBuy);
 router.route('/sell/:symbol').get(controller.createMarketSell);
 router.route('/balanceOnBTC').get(controller.balanceOnBTC);
 router.route('/openOrders').get(controller.getOpenOrders);
-
+router.route('/getLastPrice/:symbols').get(controller.getLastPrice);
 module.exports = router;
