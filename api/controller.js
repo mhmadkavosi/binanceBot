@@ -34,10 +34,10 @@ exports.getLastPrice = async () => {
   }
 };
 
-exports.account = async () => {
+exports.balanceOnBTC = async () => {
   try {
     let lendingData = await binance.balance();
-    console.log(lendingData);
+    console.log(lendingData.BTC);
   } catch (error) {
     console.log(error);
   }
